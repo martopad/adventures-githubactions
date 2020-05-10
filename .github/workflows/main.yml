@@ -45,7 +45,7 @@ jobs:
         docker run \
           --rm \
           --env DEPLOYER=CI \
-          myapp:${{ env.GITHUB_SHA_SHORT }}-release \
+          ${{ env.DOCKER_REPO }}:${{ env.GITHUB_SHA_SHORT }}-release \
           CI-ID
 
     - name: Login to DockerHub
