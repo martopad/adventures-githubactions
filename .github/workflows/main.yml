@@ -45,6 +45,14 @@ jobs:
           myapp:${{ env.GITHUB_SHA_SHORT }}-release \
           CI-ID
 
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: martopad/myapp
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD_ACCESS_TOKEN }}
+        tags: "latest,${{ env.GITHUB_SHA_SHORT }}"
+
     # - name: Run The App
     #   run: |
     #     export DEPLOYER="CI"
