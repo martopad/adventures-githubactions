@@ -11,6 +11,10 @@ on:
 env:
   DOCKER_REPO: martopad/myapp
 
+strategy:
+  matrix:
+    build-type: [Release, Debug]
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -33,10 +37,10 @@ jobs:
     - name: Docker Build Myapp
       run: |
         docker build \
-          --tag ${{ env.DOCKER_REPO }}:${{ env.GITHUB_SHA_SHORT }}-release \
+          --tag ${{ env.DOCKER_REPO }}:${{ env.GITHUB_SHA_SHORT }}-${{ matrix.build-type }} \
           --build-arg BUILD_DATE=${{ env.GITHUB_BUILD_DATE_FORMATTED }} \
           --build-arg BUILD_VERSION=${{ env.GITHUB_SHA_SHORT }} \
-          --build-arg BUILD_TYPE=Release \
+          --build-arg BUILD_TYPE=${{ matrix.build-type }}  \
           .
 
     # Runs a set of commands using the runners shell
@@ -45,7 +49,7 @@ jobs:
         docker run \
           --rm \
           --env DEPLOYER=CI \
-          ${{ env.DOCKER_REPO }}:${{ env.GITHUB_SHA_SHORT }}-release \
+          ${{ env.DOCKER_REPO }}:${{ env.GITHUB_SHA_SHORT }}-${{ matrix.build-type }}  \
           CI-ID
 
     - uses: azure/docker-login@v1
@@ -57,4 +61,4 @@ jobs:
     - name: Push to Dockerhub
       run: |
         docker push \
-          ${{ env.DOCKER_REPO }}:${{ env.GITHUB_SHA_SHORT }}-release
+          ${{ env.DOCKER_REPO }}:${{ env.GITHUB_SHA_SHORT }}-${{ matrix.build-type }}
