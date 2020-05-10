@@ -29,12 +29,18 @@ jobs:
         cmake -DCMAKE_BUILD_TYPE=Release ${GITHUB_WORKSPACE}/app/
 
     # Runs a set of commands using the runners shell
-    - name: Build the app
+    - name: Build The App
       run: |
         cd ${GITHUB_WORKSPACE}/bin/Release
         make myapp
 
-    - name: Install the app
-      run: |
-        cd ${GITHUB_WORKSPACE}/bin/Release
-        make install
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: myappBinaries
+        path: ./test
+
+    # - name: Install the app
+    #   run: |
+    #     cd ${GITHUB_WORKSPACE}/bin/Release
+    #     make install
