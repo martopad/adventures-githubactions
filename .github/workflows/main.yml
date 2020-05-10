@@ -37,7 +37,7 @@ jobs:
 
     - name: Run The App
       run: |
-        ./${GITHUB_WORKSPACE}/bin/Release/myapp
+        .${GITHUB_WORKSPACE}/bin/Release/myapp
 
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v2
