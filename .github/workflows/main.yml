@@ -8,6 +8,10 @@ on:
   push:
     branches: [ master ]
 
+env:
+  GH_BUILD_DATE: $(date -u +'%Y%m%dT%H%M%SZ')
+  GH_BUILD_DATE_FORMATTED: $(date -u +'%Y-%m-%dT%H:%M:%SZ')
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -17,9 +21,6 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      env:
-        GH_BUILD_DATE: $(date -u +'%Y%m%dT%H%M%SZ')
-        GH_BUILD_DATE_FORMATTED: $(date -u +'%Y-%m-%dT%H:%M:%SZ')
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - name: Checkout
       uses: actions/checkout@v2
