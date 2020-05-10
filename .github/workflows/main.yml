@@ -26,7 +26,6 @@ jobs:
 
     - name: Setup Env Variables
       run: |
-        echo ${{ env.DOCKER_REPO }}
         echo ::set-env name=GITHUB_SHA_SHORT::$(echo $GITHUB_SHA | cut -c 1-6)
         echo ::set-env name=GITHUB_BUILD_DATE_FORMATTED::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
 
@@ -52,8 +51,9 @@ jobs:
     - name: Login to DockerHub
       run: |
         docker login \
-          -u ${{ secrets.DOCKER_USERNAME }}
-          -p ${{ secrets.DOCKER_PASSWORD_ACCESS_TOKEN }}
+          -u ${{ secrets.DOCKER_USERNAME }} \
+          -p ${{ secrets.DOCKER_PASSWORD_ACCESS_TOKEN }} \
+          registry-1.docker.io
 
     - name: Push to Dockerhub
       run: |
@@ -62,7 +62,7 @@ jobs:
 
     - name: Logout DockerHub
       run: |
-        docker logout
+        docker logout registry-1.docker.io
 
 
   # Publish to DockerHub:
