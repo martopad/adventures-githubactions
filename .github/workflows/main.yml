@@ -33,17 +33,11 @@ jobs:
       run: |
         cd ${GITHUB_WORKSPACE}/bin/Release
         make myapp
-        ls ${GITHUB_WORKSPACE}/bin/Release/
 
     - name: Run The App
       run: |
-        echo ${GITHUB_WORKSPACE}/bin/Release
-        echo ---------------------
-        ls ${GITHUB_WORKSPACE}/bin/Release
-        echo ---------------------
-        file ${GITHUB_WORKSPACE}/bin/Release/myapp
-        ls -l ${GITHUB_WORKSPACE}/bin/Release/
-        ${GITHUB_WORKSPACE}/bin/Release/myapp
+        export DEPLOYER="MARTIN"
+        ${GITHUB_WORKSPACE}/bin/Release/myapp testID
 
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v2
