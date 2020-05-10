@@ -26,7 +26,7 @@ jobs:
 
     - name: Setup Env Variables
       run: |
-        echo ::set-env name=GITHUB_SHA_SHORT::$(echo $GITHUB_SHA | cut -c 1-6)
+        echo ::set-env name=GITHUB_SHA_SHORT::$(echo $GITHUB_SHA | cut -c 1-7)
         echo ::set-env name=GITHUB_BUILD_DATE_FORMATTED::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
 
     # Runs a single command using the runners shell
