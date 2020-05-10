@@ -31,7 +31,7 @@ jobs:
     # Runs a set of commands using the runners shell
     - name: Build the app
       run: |
-        make myapp
+        make
 
     - name: Install the app
       run: |
