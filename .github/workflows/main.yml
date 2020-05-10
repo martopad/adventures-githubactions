@@ -8,10 +8,6 @@ on:
   push:
     branches: [ master ]
 
-env:
-  GH_BUILD_DATE: $(date -u +'%Y%m%dT%H%M%SZ')
-  GH_BUILD_DATE_FORMATTED: $(date -u +'%Y-%m-%dT%H:%M:%SZ')
-
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -25,13 +21,18 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
+    - name: Setup Env Variables
+      run: |
+        echo ::set-env name=GITHUB_SHA_SHORT::$(echo $GITHUB_SHA | cut -c 1-6)
+        echo ::set-env name=GITHUB_BUILD_DATE_FORMATTED::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+
     # Runs a single command using the runners shell
     - name: Docker Build Myapp
       run: |
         docker build \
-          --tag myapp:${GH_BUILD_DATE}-release \
-          --build-arg BUILD_DATE=${GH_BUILD_DATE_FORMATTED} \
-          --build-arg BUILD_VERSION=${GH_BUILD_DATE} \
+          --tag myapp:${{ env.GITHUB_SHA_SHORT }}-release \
+          --build-arg BUILD_DATE=${{ env.GITHUB_BUILD_DATE_FORMATTED }} \
+          --build-arg BUILD_VERSION=${{ env.GITHUB_SHA_SHORT }} \
           --build-arg BUILD_TYPE=Release \
           .
 
@@ -41,7 +42,7 @@ jobs:
         docker run \
           --rm \
           --env DEPLOYER=CI \
-          myapp:${GH_BUILD_DATE}-release \
+          myapp:${{ env.GITHUB_SHA_SHORT }}-release \
           CI-ID
 
     # - name: Run The App
