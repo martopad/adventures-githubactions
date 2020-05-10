@@ -36,4 +36,5 @@ jobs:
 
     - name: Install the app
       run: |
+        cd ${GITHUB_WORKSPACE}/bin/Release
         make install
