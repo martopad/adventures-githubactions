@@ -49,7 +49,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: myappBinaries
-        path: ${GITHUB_WORKSPACE}/bin/Release/myapp
+        path: ./bin/Release/myapp
 
     # - name: Install the app
     #   run: |
