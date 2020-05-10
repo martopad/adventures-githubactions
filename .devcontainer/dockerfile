@@ -1,0 +1,7 @@
+FROM centos:8.1.1911
+
+RUN yum install -y  \
+    cmake-3.11.4 \
+    gcc-8.3.1 \
+    gcc-c++-8.3.1 \
+    make-4.2.1
