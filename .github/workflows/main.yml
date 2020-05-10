@@ -31,8 +31,9 @@ jobs:
     # Runs a set of commands using the runners shell
     - name: Build the app
       run: |
-        make
+        echo $PWD
+    #     make
 
-    - name: Install the app
-      run: |
-        make install
+    # - name: Install the app
+    #   run: |
+    #     make install
