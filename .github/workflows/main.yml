@@ -41,7 +41,8 @@ jobs:
         echo ---------------------
         ls ${GITHUB_WORKSPACE}/bin/Release
         echo ---------------------
-        .${GITHUB_WORKSPACE}/bin/Release/myapp
+        file ${GITHUB_WORKSPACE}/bin/Release/myapp
+        ls -l ${GITHUB_WORKSPACE}/bin/Release/
 
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v2
