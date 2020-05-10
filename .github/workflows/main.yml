@@ -38,6 +38,9 @@ jobs:
     - name: Run The App
       run: |
         echo ${GITHUB_WORKSPACE}/bin/Release
+        echo ---------------------
+        ls ${GITHUB_WORKSPACE}/bin/Release
+        echo ---------------------
         .${GITHUB_WORKSPACE}/bin/Release/myapp
 
     - name: Upload Build Artifacts
