@@ -24,9 +24,9 @@ jobs:
     # Runs a single command using the runners shell
     - name: CMake Configure
       run: |
-        mkdir /bin/Release
-        cd /bin/Release
-        cmake -DCMAKE_BUILD_TYPE=Release /app/
+        mkdir -p ${GITHUB_WORKSPACE}/bin/Release
+        cd ${GITHUB_WORKSPACE}/bin/Release
+        cmake -DCMAKE_BUILD_TYPE=Release ${GITHUB_WORKSPACE}/app/
 
     # Runs a set of commands using the runners shell
     - name: Build the app
