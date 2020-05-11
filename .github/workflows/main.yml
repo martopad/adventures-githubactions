@@ -43,4 +43,16 @@ jobs:
           --env DEPLOYER=CI \
           ${{ env.DOCKER_REPO }}:${{ env.GITHUB_SHA_SHORT }}-release \
           CI-ID
+        
+    - name: Login to DockerHub
+      uses: azure/docker-login@v1
+        with:
+          login-server: https://index.docker.io/v1/
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD_ACCESS_TOKEN }}
+          
+    - name: push to DockerHub
+      run: |
+        docker push \
+          ${{ env.DOCKER_REPO }}:${{ env.GITHUB_SHA_SHORT }}-release
   
