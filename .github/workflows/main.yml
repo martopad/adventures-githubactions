@@ -35,4 +35,10 @@ jobs:
       run: |
         export DEPLOYER="CI"
         ${GITHUB_WORKSPACE}/bin/Release/myapp testIDCI
+        
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: myappBinaries
+        path: ./bin/Release/
   
